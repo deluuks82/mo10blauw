@@ -6,7 +6,7 @@
       "Ada": {
         "zone": "veld",
         "sx": 242.07,
-        "sy": 105.68
+        "sy": 324.32
       },
       "Nina": {
         "zone": "veld",
@@ -16,7 +16,7 @@
       "Mathilde": {
         "zone": "veld",
         "sx": 242.07,
-        "sy": 324.32
+        "sy": 105.68
       },
       "Isabel": {
         "zone": "veld",
@@ -32,7 +32,9 @@
         "zone": "wissel"
       },
       "Rosie": {
-        "zone": "wissel"
+        "zone": "veld",
+        "sx": 406.73,
+        "sy": 324.32
       },
       "Noralie": {
         "zone": "veld",
@@ -41,16 +43,14 @@
       },
       "Faye": {
         "zone": "veld",
-        "sx": 406.73,
-        "sy": 324.32
-      },
-      "Doutzen": {
-        "zone": "veld",
         "sx": 439.67,
         "sy": 215
+      },
+      "Doutzen": {
+        "zone": "wissel"
       }
     },
-    "updatedAt": "2026-11-07T22:01:54.791Z"
+    "updatedAt": "2026-11-08T19:23:18.387Z"
   },
   "zaal": {
     "teamNaam": "MHC Alliance MO10",
