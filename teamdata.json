@@ -28,7 +28,7 @@
       },
       "Vivièn": {
         "zone": "veld",
-        "sx": 143.27,
+        "sx": 275,
         "sy": 215
       },
       "Rosie": {
@@ -38,7 +38,7 @@
       },
       "Noralie": {
         "zone": "veld",
-        "sx": 307.94,
+        "sx": 143.27,
         "sy": 215
       },
       "Faye": {
@@ -50,7 +50,7 @@
         "zone": "wissel"
       }
     },
-    "updatedAt": "2026-11-14T10:07:39.525Z"
+    "updatedAt": "2026-11-14T11:00:29.423Z"
   },
   "zaal": {
     "teamNaam": "MHC Alliance MO10",
