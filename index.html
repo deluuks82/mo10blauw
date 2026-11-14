@@ -263,6 +263,14 @@ tbody tr:last-child td:first-child{background:var(--bg)}
 .chip{font-size:10px;font-weight:800;border-radius:20px;padding:3px 8px;margin-left:3px}
 .c-keeper{background:#FEF9C3;color:#713F12}.c-achter{background:#DBEAFE;color:#1D4ED8}.c-midden{background:#EDE9FE;color:#5B21B6}.c-voor{background:#FFE4E6;color:#9F1239}.c-geen{background:var(--bg);color:var(--mut)}.c-coach{background:#E0E7FF;color:#3730A3}
 .version{font-size:10.5px;color:var(--mut);text-align:center;margin-top:12px;font-weight:600}
+  .mode-switch{display:flex;gap:5px;background:#F1F1EF;border-radius:14px;padding:4px;margin-bottom:10px}
+  .mode-switch button{flex:1;padding:9px 6px;border-radius:10px;font-size:12px;font-weight:800;color:var(--mut)}
+  .mode-switch button.active{background:var(--green);color:#fff;box-shadow:0 2px 7px rgba(0,120,86,.2)}
+  .mode-help{font-size:11.5px;color:var(--mut);line-height:1.45;margin:-2px 2px 12px}
+  .zaal-only{display:none} body.zaal-mode .veld-only{display:none} body.zaal-mode .zaal-only{display:block}
+  body.zaal-mode .veld{background:repeating-linear-gradient(90deg,#1677A8 0 16.666%,#126C99 16.666% 33.333%)} body.zaal-mode .veld.portrait{background:repeating-linear-gradient(180deg,#1677A8 0 16.666%,#126C99 16.666% 33.333%)}
+  body.zaal-mode #veld-g{display:none} body.zaal-mode #zaal-g{display:block} body:not(.zaal-mode) #zaal-g{display:none}
+
 /* ===== Liggend (telefoon) ===== */
 @media (orientation:landscape) and (max-height:520px){
  .tabs{padding-top:4px;padding-bottom:calc(4px + env(safe-area-inset-bottom))}
@@ -310,7 +318,7 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
 .day-match div{min-width:0;flex:1}.day-match b{display:block;font-size:14.5px;line-height:1.25;font-weight:900;color:#151515;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.day-match small{display:flex;align-items:center;color:var(--mut);font-size:11.5px;font-weight:650;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.day-match small:before{content:"⌖";font-size:13px;color:var(--green);margin-right:4px;font-weight:900}
 .day-matches.compact{margin:0;padding:10px 14px 12px;background:#F7F7F4}.day-matches.compact .day-match{box-shadow:none}
 .dug-sec[data-zone="afgemeld"] .bank .av{display:flex!important}.dug-sec[data-zone="afgemeld"] .bank{display:flex!important;align-items:center;gap:5px}</style>
-<script id="app-data">window.APP_DATA={"teamNaam":"MO10 - Blauw","matches":[{"dag":"29","maand":"Aug","type":"Uit","tegenstander":"HC Spaarndam · MO10-Rood","tijd_wedstrijd":"09:45","tijd_verzamelen":"08:45","locatie":"HC Spaarndam","plaats_verzamelen":"Haven van Heemstede","veld":"","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Faye","fruit":"","rijden":["Isabel","Faye","Noralie"],"afgemeld":"","bijzonderheden":""},{"dag":"5","maand":"Sep","type":"Thuis","tegenstander":"Hurley · MO10-Groen","tijd_wedstrijd":"13:50","tijd_verzamelen":"13:20","locatie":"Hurley","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Isabel","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"19","maand":"Sep","type":"Thuis","tegenstander":"HC Haarlem · MO10-Rood","tijd_wedstrijd":"08:30","tijd_verzamelen":"08:00","locatie":"HC Haarlem","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Doutzen","fruit":"","rijden":[],"afgemeld":"Luuk","bijzonderheden":"Wedstrijdtafel Eveline en Hanka"},{"dag":"26","maand":"Sep","type":"Uit","tegenstander":"Myra · MO10-Rood","tijd_wedstrijd":"10:00","tijd_verzamelen":"09:00","locatie":"Myra","plaats_verzamelen":"Haven van Heemstede","veld":"","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Nina","fruit":"","rijden":["Doutzen","Mathilde","Nina"],"afgemeld":"","bijzonderheden":"Uitsokken mee"},{"dag":"3","maand":"Okt","type":"Thuis","tegenstander":"VVV HC · MO10-Groen","tijd_wedstrijd":"11:10","tijd_verzamelen":"10:40","locatie":"VVV HC","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"Nina","bijzonderheden":""},{"dag":"24","maand":"Okt","type":"Thuis","tegenstander":"FIT · MO10-Roze","tijd_wedstrijd":"12:30","tijd_verzamelen":"12:00","locatie":"FIT","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Renske","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"31","maand":"Okt","type":"Uit","tegenstander":"Spaarndam · MO10-Rood","tijd_wedstrijd":"09:00","tijd_verzamelen":"08:00","locatie":"Spaarndam","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Vivièn","fruit":"","rijden":["Vivièn","Renske","Isabel"],"afgemeld":"Romy","bijzonderheden":""},{"dag":"7","maand":"Nov","type":"Thuis","tegenstander":"Bloemendaal · MO10-Wit","tijd_wedstrijd":"09:50","tijd_verzamelen":"09:20","locatie":"Bloemendaal","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Noralie","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":"Na de limonade clubhuisdienst (~20 minuten)"},{"dag":"14","maand":"Nov","type":"Thuis","tegenstander":"Westerpark · MO10-Roze","tijd_wedstrijd":"12:15","tijd_verzamelen":"11:45","locatie":"Westerpark","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Renske","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"21","maand":"Nov","type":"Uit","tegenstander":"Castricum · MO10-Roze","tijd_wedstrijd":"10:00","tijd_verzamelen":"08:45","locatie":"Castricum","plaats_verzamelen":"Haven van Heemstede","veld":"2","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Ada","keeper":"Rosie","fruit":"","rijden":["Ada","Rosie","Faye"],"afgemeld":"","bijzonderheden":""},{"dag":"28","maand":"Nov","type":"Thuis","tegenstander":"Alliance · MO10-Rood","tijd_wedstrijd":"14:30","tijd_verzamelen":"14:00","locatie":"Alliance Arena","plaats_verzamelen":"MHC Alliance","veld":"1","wedstrijd":"1","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"28","maand":"Nov","type":"Thuis","tegenstander":"Hurley · MO10-Oranje","tijd_wedstrijd":"16:10","tijd_verzamelen":"","locatie":"Alliance Arena","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"Isabel / Luuk","bijzonderheden":""},{"dag":"10","maand":"Jan","type":"Uit","tegenstander":"Castricum · MO10-Paars","tijd_wedstrijd":"12:00","tijd_verzamelen":"11:00","locatie":"Sportcentrum De Bloemen","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"Castricum","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Ada","fruit":"","rijden":["Rosie","Noralie","Isabel"],"afgemeld":"","bijzonderheden":""},{"dag":"10","maand":"Jan","type":"Uit","tegenstander":"Alliance · MO10-Rood","tijd_wedstrijd":"13:40","tijd_verzamelen":"","locatie":"Sportcentrum De Bloemen","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Castricum","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"16","maand":"Jan","type":"Thuis","tegenstander":"Myra · MO10-Paars","tijd_wedstrijd":"09:30","tijd_verzamelen":"09:00","locatie":"Alliance Arena","plaats_verzamelen":"Allliance","veld":"1","wedstrijd":"1","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"16","maand":"Jan","type":"Thuis","tegenstander":"Castricum · MO10-Paars","tijd_wedstrijd":"11:10","tijd_verzamelen":"","locatie":"Alliance Arena","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"23","maand":"Jan","type":"Uit","tegenstander":"Hurley · MO10-Oranje","tijd_wedstrijd":"09:30","tijd_verzamelen":"08:30","locatie":"MHC Hurley","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"Hurley","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Ada","fruit":"","rijden":["Doutzen","Faye","Renske"],"afgemeld":"","bijzonderheden":""},{"dag":"23","maand":"Jan","type":"Uit","tegenstander":"Haarlem · MO10-Groen","tijd_wedstrijd":"10:20","tijd_verzamelen":"","locatie":"MHC Hurley","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Hurley","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"30","maand":"Jan","type":"Uit","tegenstander":"Haarlem · MO10-Groen","tijd_wedstrijd":"12:00","tijd_verzamelen":"11:15","locatie":"Kennemer Sportcenter","plaats_verzamelen":"Haven van Heemstede","veld":"3","wedstrijd":"1","zaalleiding":"Haarlem","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Ada","fruit":"","rijden":["Vivièn","Ada","Noralie"],"afgemeld":"","bijzonderheden":""},{"dag":"30","maand":"Jan","type":"Uit","tegenstander":"Amsterdam · MO10-Wit","tijd_wedstrijd":"12:50","tijd_verzamelen":"","locatie":"Kennemer Sportcenter","plaats_verzamelen":"","veld":"3","wedstrijd":"2","zaalleiding":"Haarlem","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"14","maand":"Feb","type":"Uit","tegenstander":"Myra · MO10-Paars","tijd_wedstrijd":"10:20","tijd_verzamelen":"09:20","locatie":"AH&BC","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"AH & BC","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Mathilde","fruit":"","rijden":["Nina","Mathilde","Rosie"],"afgemeld":"","bijzonderheden":""},{"dag":"14","maand":"Feb","type":"Uit","tegenstander":"Amsterdam · MO10-Wit","tijd_wedstrijd":"11:10","tijd_verzamelen":"","locatie":"AH&BC","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"AH & BC","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""}],"spelers":[{"name":"Ada","initials":"Ad","zone":"wissel","sx":0,"sy":0,"pos":"Keepen / Achter / Voor"},{"name":"Doutzen","initials":"Do","zone":"wissel","sx":0,"sy":0,"pos":"Voor"},{"name":"Faye","initials":"Fa","zone":"wissel","sx":0,"sy":0,"pos":"Midden / Voor"},{"name":"Isabel","initials":"Is","zone":"wissel","sx":0,"sy":0,"pos":"Midden / Voor"},{"name":"Mathilde","initials":"Ma","zone":"wissel","sx":0,"sy":0,"pos":"Keepen / Midden"},{"name":"Nina","initials":"Ni","zone":"wissel","sx":0,"sy":0,"pos":"Achter"},{"name":"Noralie","initials":"No","zone":"wissel","sx":0,"sy":0,"pos":"Midden"},{"name":"Renske","initials":"Re","zone":"wissel","sx":0,"sy":0,"pos":"Achter / Voor"},{"name":"Rosie","initials":"Ro","zone":"wissel","sx":0,"sy":0,"pos":"Achter / Midden"},{"name":"Vivièn","initials":"Vi","zone":"wissel","sx":0,"sy":0,"pos":"Achter"},{"name":"Romy","initials":"Ro","zone":"coach","sx":0,"sy":0,"pos":""},{"name":"Luuk","initials":"Lu","zone":"coach","sx":0,"sy":0,"pos":""}],"positions":{"Isabel":{"zone":"veld","sx":340.87,"sy":105.68},"Mathilde":{"zone":"veld","sx":176.2,"sy":105.68},"Doutzen":{"zone":"wissel"},"Faye":{"zone":"veld","sx":439.67,"sy":215},"Rosie":{"zone":"veld","sx":373.8,"sy":324.32},"Renske":{"zone":"veld","sx":25.94,"sy":215},"Nina":{"zone":"veld","sx":143.27,"sy":215},"Vivièn":{"zone":"wissel"},"Noralie":{"zone":"veld","sx":275,"sy":215},"Ada":{"zone":"veld","sx":209.13,"sy":324.32}},"photos":{}};</script>
+<script id="app-data">window.APP_DATA={"teamNaam":"MO10 - Blauw","matches":[{"dag":"29","maand":"Aug","type":"Uit","tegenstander":"HC Spaarndam · MO10-Rood","tijd_wedstrijd":"09:45","tijd_verzamelen":"08:45","locatie":"HC Spaarndam","plaats_verzamelen":"Haven van Heemstede","veld":"","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Faye","fruit":"","rijden":["Isabel","Faye","Noralie"],"afgemeld":"","bijzonderheden":""},{"dag":"5","maand":"Sep","type":"Thuis","tegenstander":"Hurley · MO10-Groen","tijd_wedstrijd":"13:50","tijd_verzamelen":"13:20","locatie":"Hurley","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Isabel","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"19","maand":"Sep","type":"Thuis","tegenstander":"HC Haarlem · MO10-Rood","tijd_wedstrijd":"08:30","tijd_verzamelen":"08:00","locatie":"HC Haarlem","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Doutzen","fruit":"","rijden":[],"afgemeld":"Luuk","bijzonderheden":"Wedstrijdtafel Eveline en Hanka"},{"dag":"26","maand":"Sep","type":"Uit","tegenstander":"Myra · MO10-Rood","tijd_wedstrijd":"10:00","tijd_verzamelen":"09:00","locatie":"Myra","plaats_verzamelen":"Haven van Heemstede","veld":"","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Nina","fruit":"","rijden":["Doutzen","Mathilde","Nina"],"afgemeld":"","bijzonderheden":"Uitsokken mee"},{"dag":"3","maand":"Okt","type":"Thuis","tegenstander":"VVV HC · MO10-Groen","tijd_wedstrijd":"11:10","tijd_verzamelen":"10:40","locatie":"VVV HC","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"Nina","bijzonderheden":""},{"dag":"24","maand":"Okt","type":"Thuis","tegenstander":"FIT · MO10-Roze","tijd_wedstrijd":"12:30","tijd_verzamelen":"12:00","locatie":"FIT","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Renske","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"31","maand":"Okt","type":"Uit","tegenstander":"Spaarndam · MO10-Rood","tijd_wedstrijd":"09:00","tijd_verzamelen":"08:00","locatie":"Spaarndam","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Vivièn","fruit":"","rijden":["Vivièn","Renske","Isabel"],"afgemeld":"Romy","bijzonderheden":""},{"dag":"7","maand":"Nov","type":"Thuis","tegenstander":"Bloemendaal · MO10-Wit","tijd_wedstrijd":"09:50","tijd_verzamelen":"09:20","locatie":"Bloemendaal","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Noralie","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":"Na de limonade clubhuisdienst (~20 minuten)"},{"dag":"14","maand":"Nov","type":"Thuis","tegenstander":"Westerpark · MO10-Roze","tijd_wedstrijd":"12:15","tijd_verzamelen":"11:45","locatie":"Westerpark","plaats_verzamelen":"MHC Alliance","veld":"Z-5","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Renske","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"21","maand":"Nov","type":"Uit","tegenstander":"Castricum · MO10-Roze","tijd_wedstrijd":"10:00","tijd_verzamelen":"08:45","locatie":"Castricum","plaats_verzamelen":"Haven van Heemstede","veld":"2","wedstrijd":"","zaalleiding":"","competitie":"Veld","tenue":"Wit shirt / Witte sokken","fluiten":"Ada","keeper":"Rosie","fruit":"","rijden":["Ada","Rosie","Faye"],"afgemeld":"","bijzonderheden":""},{"dag":"28","maand":"Nov","type":"Thuis","tegenstander":"Alliance · MO10-Rood","tijd_wedstrijd":"14:30","tijd_verzamelen":"14:00","locatie":"Alliance Arena","plaats_verzamelen":"MHC Alliance","veld":"1","wedstrijd":"1","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"28","maand":"Nov","type":"Thuis","tegenstander":"Hurley · MO10-Oranje","tijd_wedstrijd":"16:10","tijd_verzamelen":"","locatie":"Alliance Arena","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Noralie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"Isabel / Luuk","bijzonderheden":""},{"dag":"10","maand":"Jan","type":"Uit","tegenstander":"Castricum · MO10-Paars","tijd_wedstrijd":"12:00","tijd_verzamelen":"11:00","locatie":"Sportcentrum De Bloemen","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"Castricum","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Ada","fruit":"","rijden":["Rosie","Noralie","Isabel"],"afgemeld":"","bijzonderheden":""},{"dag":"10","maand":"Jan","type":"Uit","tegenstander":"Alliance · MO10-Rood","tijd_wedstrijd":"13:40","tijd_verzamelen":"","locatie":"Sportcentrum De Bloemen","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Castricum","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Rosie","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"16","maand":"Jan","type":"Thuis","tegenstander":"Myra · MO10-Paars","tijd_wedstrijd":"09:30","tijd_verzamelen":"09:00","locatie":"Alliance Arena","plaats_verzamelen":"Allliance","veld":"1","wedstrijd":"1","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"16","maand":"Jan","type":"Thuis","tegenstander":"Castricum · MO10-Paars","tijd_wedstrijd":"11:10","tijd_verzamelen":"","locatie":"Alliance Arena","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Alliance","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Mathilde","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"23","maand":"Jan","type":"Uit","tegenstander":"Hurley · MO10-Oranje","tijd_wedstrijd":"09:30","tijd_verzamelen":"08:30","locatie":"MHC Hurley","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"Hurley","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Ada","fruit":"","rijden":["Doutzen","Faye","Renske"],"afgemeld":"","bijzonderheden":""},{"dag":"23","maand":"Jan","type":"Uit","tegenstander":"Haarlem · MO10-Groen","tijd_wedstrijd":"10:20","tijd_verzamelen":"","locatie":"MHC Hurley","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"Hurley","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Doutzen","keeper":"Ada","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"30","maand":"Jan","type":"Uit","tegenstander":"Haarlem · MO10-Groen","tijd_wedstrijd":"12:00","tijd_verzamelen":"11:15","locatie":"Kennemer Sportcenter","plaats_verzamelen":"Haven van Heemstede","veld":"3","wedstrijd":"1","zaalleiding":"Haarlem","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Ada","fruit":"","rijden":["Vivièn","Ada","Noralie"],"afgemeld":"","bijzonderheden":""},{"dag":"30","maand":"Jan","type":"Uit","tegenstander":"Amsterdam · MO10-Wit","tijd_wedstrijd":"12:50","tijd_verzamelen":"","locatie":"Kennemer Sportcenter","plaats_verzamelen":"","veld":"3","wedstrijd":"2","zaalleiding":"Haarlem","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Vivièn","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""},{"dag":"14","maand":"Feb","type":"Uit","tegenstander":"Myra · MO10-Paars","tijd_wedstrijd":"10:20","tijd_verzamelen":"09:20","locatie":"AH&BC","plaats_verzamelen":"Haven van Heemstede","veld":"1","wedstrijd":"1","zaalleiding":"AH & BC","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Mathilde","fruit":"","rijden":["Nina","Mathilde","Rosie"],"afgemeld":"","bijzonderheden":""},{"dag":"14","maand":"Feb","type":"Uit","tegenstander":"Amsterdam · MO10-Wit","tijd_wedstrijd":"11:10","tijd_verzamelen":"","locatie":"AH&BC","plaats_verzamelen":"","veld":"1","wedstrijd":"2","zaalleiding":"AH & BC","competitie":"Zaal","tenue":"Wit shirt / Witte sokken","fluiten":"Nina","keeper":"Mathilde","fruit":"","rijden":[],"afgemeld":"","bijzonderheden":""}],"spelers":[{"name":"Ada","initials":"Ad","zone":"wissel","sx":0,"sy":0,"pos":"Keepen / Achter / Voor"},{"name":"Doutzen","initials":"Do","zone":"wissel","sx":0,"sy":0,"pos":"Voor"},{"name":"Faye","initials":"Fa","zone":"wissel","sx":0,"sy":0,"pos":"Midden / Voor"},{"name":"Isabel","initials":"Is","zone":"wissel","sx":0,"sy":0,"pos":"Midden / Voor"},{"name":"Mathilde","initials":"Ma","zone":"wissel","sx":0,"sy":0,"pos":"Keepen / Midden"},{"name":"Nina","initials":"Ni","zone":"wissel","sx":0,"sy":0,"pos":"Achter"},{"name":"Noralie","initials":"No","zone":"wissel","sx":0,"sy":0,"pos":"Midden"},{"name":"Renske","initials":"Re","zone":"wissel","sx":0,"sy":0,"pos":"Achter / Voor"},{"name":"Rosie","initials":"Ro","zone":"wissel","sx":0,"sy":0,"pos":"Achter / Midden"},{"name":"Vivièn","initials":"Vi","zone":"wissel","sx":0,"sy":0,"pos":"Achter"},{"name":"Romy","initials":"Ro","zone":"coach","sx":0,"sy":0,"pos":""},{"name":"Luuk","initials":"Lu","zone":"coach","sx":0,"sy":0,"pos":""}],"positions":{"Ada":{"zone":"veld","sx":209.13,"sy":324.32},"Vivièn":{"zone":"wissel","sx":176.2,"sy":105.68},"Isabel":{"zone":"veld","sx":406.73,"sy":105.68},"Doutzen":{"zone":"wissel"},"Faye":{"zone":"veld","sx":439.67,"sy":215},"Noralie":{"zone":"veld","sx":275,"sy":215},"Renske":{"zone":"veld","sx":25.94,"sy":215},"Rosie":{"zone":"veld","sx":373.8,"sy":324.32},"Nina":{"zone":"veld","sx":143.27,"sy":215},"Mathilde":{"zone":"veld","sx":209.13,"sy":105.68}},"photos":{}};</script>
 </head>
 <body>
 <div class="app"><main class="screens">
@@ -376,7 +384,7 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
           <path d="M 20,80.4 A 196.3,196.3 0 0,1 216.3,276.7 L 216.3,313.3 A 196.3,196.3 0 0,1 20,509.6" fill="none" stroke="white" stroke-width="1.5" stroke-dasharray="6,10" opacity="0.35"></path>
           <path d="M 934,80.4 A 196.3,196.3 0 0,0 737.7,276.7 L 737.7,313.3 A 196.3,196.3 0 0,0 934,509.6" fill="none" stroke="white" stroke-width="1.5" stroke-dasharray="6,10" opacity="0.35"></path>
           <circle cx="84" cy="295" r="3" fill="white" opacity="0.6"></circle><circle cx="870" cy="295" r="3" fill="white" opacity="0.6"></circle><circle cx="477" cy="295" r="3" fill="white" opacity="0.45"></circle>
-        </g></svg>
+        </g><g id="zaal-g"><rect x="20" y="20" width="914" height="550" fill="none" stroke="white" stroke-width="3" opacity=".75"></rect><line x1="477" y1="20" x2="477" y2="570" stroke="white" stroke-width="2.5" opacity=".65"></line><rect x="8" y="260" width="12" height="70" fill="none" stroke="white" stroke-width="3"></rect><rect x="934" y="260" width="12" height="70" fill="none" stroke="white" stroke-width="3"></rect><path d="M20 155 Q235 295 20 435" fill="none" stroke="white" stroke-width="3" opacity=".8"></path><path d="M934 155 Q719 295 934 435" fill="none" stroke="white" stroke-width="3" opacity=".8"></path><circle cx="477" cy="295" r="4" fill="white" opacity=".6"></circle></g></svg>
         <div class="hulp" id="hulp"><div class="lh"></div><div class="lv"></div><div class="ring"></div></div>
       </div>
     </div>
@@ -388,6 +396,7 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
 </section>
 
 <div class="page scroll-page" id="page-spelregels">
+  <div class="veld-only">
   <div class="page-head"><small>KNHB · O10</small><b>Spelregels</b><span>8 tegen 8 · onder 10 jaar</span></div>
   <div class="spelregels-page">
     <div class="spelregels-header"><div class="sr-title">📚 Spelregels O10</div><div class="sr-sub">KNHB · 8 tegen 8 · Onder 10 jaar</div></div>
@@ -415,7 +424,15 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
       <div class="sr-footer-item"><div class="sr-footer-icon">👏</div><div class="sr-footer-text"><b>Ouders:</b> Positief aanmoedigen.</div></div>
       <div class="sr-footer-item"><div class="sr-footer-icon">🔗</div><div class="sr-footer-text"><b>Meer info:</b> www.knhb.nl/jongstejeugd</div></div>
     </div>
-  </div>
+  </div></div>
+  <div class="zaal-only"><div class="page-head"><small>KNHB · O10 · Zaal</small><b>Spelregels zaal</b><span>6 tegen 6 incl. keeper · 2x15 minuten</span></div><div class="spelregels-page"><div class="sr-intro"><div class="sr-intro-pills"><span class="sr-pill">6 vs 6 incl. keeper</span><span class="sr-pill">2x15 min</span><span class="sr-pill">Balken langs de zijlijn</span></div></div><div class="sr-rules">
+  <div class="sr-rule"><div class="sr-rule-title">Spelen van de bal</div><div class="sr-rule-body">In de zaal wordt de bal met een push gespeeld. Slaan is niet toegestaan.</div></div>
+  <div class="sr-rule"><div class="sr-rule-title">Balken</div><div class="sr-rule-body">Langs de zijlijnen liggen balken. De bal kan via de balk worden gespeeld en blijft daardoor vaker in het spel.</div></div>
+  <div class="sr-rule"><div class="sr-rule-title">Bal van de grond</div><div class="sr-rule-body">De bal hoort in de zaal in principe over de vloer te worden gespeeld. Omhoog spelen mag alleen binnen de geldende uitzonderingen en nooit gevaarlijk.</div></div>
+  <div class="sr-rule"><div class="sr-rule-title">Cirkel en doelpunt</div><div class="sr-rule-body">Een doelpunt kan alleen worden gemaakt nadat de bal door een aanvaller in de cirkel is gespeeld.</div></div>
+  <div class="sr-rule"><div class="sr-rule-title">Strafcorner</div><div class="sr-rule-body">Bij daarvoor geldende verdedigende overtredingen wordt een strafcorner toegekend. De zaaluitvoering wijkt af van veldhockey.</div></div>
+  <div class="sr-rule"><div class="sr-rule-title">Let op seizoen 2026-2027</div><div class="sr-rule-body">Gebruik bij wedstrijden altijd het actuele KNHB-spelreglement Zaalhockey en de arbitrageafspraken van het seizoen.</div></div>
+  </div></div></div>
 </div>
 
 
@@ -427,7 +444,16 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
     <div class="blk-title">Team &amp; voorkeurspositie</div>
     <div class="card-box"><div id="roster"></div></div>
     <div class="blk-title">Instellingen<span>Excel inladen, lokaal opslaan of een opstelling publiceren</span></div>
-    <div class="status" id="status"></div>
+    <div class="card-box">
+        <h3>Opstellingsmodus</h3>
+        <div class="mode-switch" id="surface-switch" role="group" aria-label="Opstellingsmodus">
+          <button type="button" data-surface="auto">Automatisch</button>
+          <button type="button" data-surface="veld">Veld</button>
+          <button type="button" data-surface="zaal">Zaal</button>
+        </div>
+        <div class="mode-help" id="surface-help"></div>
+      </div>
+      <div class="status" id="status"></div>
     <label class="upload" for="file-input"><div class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6.5A2.5 2.5 0 0 0 4 5.5v13A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5V9z"></path><path d="M14 3v6h6M8 13l4 5M12 13l-4 5"></path></svg></div><div><b>Kies je Excel-bestand</b><span>.xlsx · tabbladen Overzicht en Team details</span></div></label>
     <input type="file" id="file-input" accept=".xlsx" hidden="">
     <button type="button" class="btn" id="btn-download"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"></path></svg>Download &amp; sla alles op</button>
@@ -445,7 +471,7 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
       <div class="fr"><code>A</code> Speelsters (vanaf rij 2) · <code>B</code> Positievoorkeur · <code>C</code> Coaches</div>
       <div class="fr">Meerdere voorkeuren scheiden met <b>/</b>, bijvoorbeeld <b>Midden / Voor</b>.</div>
     </div>
-    <div class="version">Versie 1.3 · 14 november 2026</div>
+    <div class="version">Versie 1.6 · 14 november 2026</div>
   </div>
 </section>
 
@@ -469,7 +495,7 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
 var D=window.APP_DATA||{};
 var MATCHES=D.matches||[], SPELERS=D.spelers||[], TEAM=D.teamNaam||"MO10";
 var K_POS="mhc-veld-v28-positions", K_PHOTO="mhc-veld-v28-photos", K_CLOCK="mhc-veld-v28-clock", K_SHOOT="mhc-veld-v28-shoot",
-    K_START="mhc-veld-v28-startformatie", K_HIST="mhc-veld-v28-history", K_PICK="mhc-veld-v28-picker", K_ORDER="mhc-veld-v32-wisselvolgorde", K_SCORE="mhc-veld-v32-score";
+    K_START="mhc-veld-v28-startformatie", K_HIST="mhc-veld-v28-history", K_PICK="mhc-veld-v28-picker", K_ORDER="mhc-veld-v32-wisselvolgorde", K_SCORE="mhc-veld-v32-score", K_SURFACE="mhc-o10-surface-mode";
 function load(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def;}catch(e){return def;}}
 function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){toast("Opslaan lukt niet (geheugen vol?)");}}
 function clone(o){return JSON.parse(JSON.stringify(o));}
@@ -491,7 +517,25 @@ var toastT;function toast(t){var e=$("toast");e.textContent=t;e.classList.add("s
 // ================== APP-HOOGTE (iPhone-proof) ==================
 function setAppHeight(){} // niet meer nodig: de schil regelt de hoogte
 
-// ================== POSITIE-HELPERS ==================
+// ================== VELD / ZAAL OVERRIDE ==================
+  var surfaceMode=load(K_SURFACE,"auto");
+  function selectedMatch(){var p=$("picker"),i=p?parseInt(p.value,10):-1;return i>=0?MATCHES[i]:null;}
+  function activeSurface(){if(surfaceMode!=="auto")return surfaceMode;var m=selectedMatch();return m&&String(m.competitie||"").toLowerCase()==="zaal"?"zaal":"veld";}
+  function normalizeSurfacePlayers(){
+    var lim=activeSurface()==="zaal"?6:8,veld=players().filter(function(s){return zoneOf(s.name)==="veld";});
+    if(veld.length<=lim)return;
+    var keep=veld.slice().sort(function(a,b){var ak=/keeper/i.test(a.pos||"")?-1:0,bk=/keeper/i.test(b.pos||"")?-1:0;return ak-bk;}).slice(0,lim).map(function(x){return x.name;});
+    veld.forEach(function(x){if(keep.indexOf(x.name)<0){positions[x.name]=positions[x.name]||{};positions[x.name].zone="wissel";}});
+    persistPositions();
+  }
+  function applySurfaceMode(){
+    document.body.classList.toggle("zaal-mode",activeSurface()==="zaal");
+    var sw=$("surface-switch"),m=selectedMatch(),a=activeSurface();
+    if(sw)sw.querySelectorAll("button").forEach(function(b){b.classList.toggle("active",b.dataset.surface===surfaceMode);});
+    var h=$("surface-help");if(h)h.textContent=surfaceMode==="auto"?("Automatisch: "+(m?(m.competitie||"Veld"):"Veld")+" voor de gekozen wedstrijd."):(surfaceMode==="zaal"?"Zaal geforceerd voor testen of voorbereiden.":"Veld geforceerd voor testen of voorbereiden.");
+  }
+  function setSurfaceMode(v){surfaceMode=/^(auto|veld|zaal)$/.test(v)?v:"auto";save(K_SURFACE,surfaceMode);applySurfaceMode();normalizeSurfacePlayers();render();updatePlayLegend();toast("Opstellingsmodus: "+(surfaceMode==="auto"?"Automatisch":surfaceMode==="zaal"?"Zaal":"Veld"));}
+  // ================== POSITIE-HELPERS ==================
 function posParts(pos){if(!pos)return[];return String(pos).split("/").map(function(p){return p.trim();}).filter(function(p){var l=p.toLowerCase();return p&&l!=="geen"&&l!=="n.v.t.";});}
 function posKey(part){var p=String(part||"").toLowerCase();if(p.indexOf("keep")>=0||p==="k")return"keeper";if(p.indexOf("acht")>=0||p.indexOf("verdedig")>=0)return"achter";if(p.indexOf("mid")>=0)return"midden";if(p.indexOf("voor")>=0||p.indexOf("aanval")>=0)return"voor";return"";}
 var LETTER={keeper:"K",achter:"A",midden:"M",voor:"V"};
@@ -563,13 +607,13 @@ function keeperName(){
 
 // ================== VELD TEKENEN ==================
 function sizeVeld(){
-  var st=$("stage"),v=$("veld"),svg=$("veld-svg"),g=$("veld-g");
+  var st=$("stage"),v=$("veld"),svg=$("veld-svg"),g=$("veld-g"),zg=$("zaal-g");
   isPortrait=portrait();
   var W=st.clientWidth-6,H=st.clientHeight-6,ratio=isPortrait?590/954:954/590,w=W,h=W/ratio;
   if(h>H){h=H;w=H*ratio;}else h=Math.min(H,h*1.12);
   v.classList.toggle("portrait",isPortrait);v.style.width=Math.max(0,Math.floor(w))+"px";v.style.height=Math.max(0,Math.floor(h))+"px";
-  if(isPortrait){svg.setAttribute("viewBox","0 0 590 954");g.setAttribute("transform","translate(0,954) rotate(-90)");}
-  else{svg.setAttribute("viewBox","0 0 954 590");g.removeAttribute("transform");}
+  if(isPortrait){svg.setAttribute("viewBox","0 0 590 954");g.setAttribute("transform","translate(0,954) rotate(-90)");if(zg)zg.setAttribute("transform","translate(0,954) rotate(-90)");}
+  else{svg.setAttribute("viewBox","0 0 954 590");g.removeAttribute("transform");if(zg)zg.removeAttribute("transform");}
   var c=Math.round(Math.max(36,Math.min(54,Math.min(w,h)*.13)));
   v.style.setProperty("--c",c+"px");
 }
@@ -668,17 +712,19 @@ function fillPicker(){
   var i=parseInt($("picker").value,10);save(K_PICK,String(i));if(i<0)return;
   var m=MATCHES[i],afg=splitNames(m.afgemeld);
   players().forEach(function(s){var z=zoneOf(s.name);if(afg.indexOf(s.name.toLowerCase())>=0)positions[s.name]={zone:"afgemeld"};else if(z==="afgemeld")positions[s.name]={zone:"wissel"};});
-  persistPositions();render();toast(afg.length?"Afgemeld: "+m.afgemeld:"Niemand afgemeld");
+  persistPositions();applySurfaceMode();normalizeSurfacePlayers();render();updatePlayLegend();toast(afg.length?"Afgemeld: "+m.afgemeld:"Niemand afgemeld");
 }
 function splitNames(s){return String(s||"").split(/[,;&/]|\sen\s/).map(function(x){return x.trim().toLowerCase();}).filter(Boolean);}
 
 // ================== WEDSTRIJDMODUS: KLOK ==================
-var HALF_MS=30*60*1000;
+function halfMs(){return activeSurface()==="zaal"?15*60*1000:30*60*1000;}
+var HALF_MS=30*60*1000; // fallback
 // Dynamische speeltijd: 60 minuten verdeeld over 8 veldplekken.
 // Het doel past zich automatisch aan het actuele aantal wissels aan.
 function playNorms(){
+  var basis=activeSurface()==="zaal"?6:8,duur=activeSurface()==="zaal"?30:60;
   var wissels=players().filter(function(s){return zoneOf(s.name)==="wissel";}).length;
-  var actief=8+wissels,target=Math.round((60*8)/Math.max(8,actief));
+  var actief=basis+wissels,target=Math.round((duur*basis)/Math.max(basis,actief));
   return{wissels:wissels,target:target,min:Math.max(0,target-5),max:target};
 }
 function playKleur(ms){var m=ms/60000,n=playNorms();if(ms<1000)return"nul";if(m<n.min)return"groen";if(m<=n.max)return"geel";return"rood";}
@@ -691,7 +737,7 @@ function scoreState(){var s=load(K_SCORE,null);if(!s)s={us:0,them:0};s.us=Math.m
 function changeScore(side,delta){var s=scoreState();s[side]=Math.max(0,s[side]+delta);save(K_SCORE,s);updateScore();}
 function updateScore(){var s=scoreState(),u=$("score-us"),t=$("score-them");if(u)u.textContent=s.us;if(t)t.textContent=s.them;}
 function clockState(){var c=load(K_CLOCK,null);if(!c)c={half:1,elapsed:0,running:false,runAt:null,started:false,bench:{}};c.bench=c.bench||{};return c;}
-function elapsed(c){return Math.min(HALF_MS,c.elapsed+(c.running&&c.runAt?Date.now()-c.runAt:0));}
+function elapsed(c){return Math.min(halfMs(),c.elapsed+(c.running&&c.runAt?Date.now()-c.runAt:0));}
 function fmt(ms){var s=Math.max(0,Math.floor(ms/1000));return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
 function fmtLeft(ms){var s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+":"+("0"+s%60).slice(-2);}
 // Wisseltijd: per speelster totaal + sinds-moment (alleen tijdens lopende klok op de bank)
@@ -707,7 +753,7 @@ function toggleClock(){
   var c=clockState(),now=Date.now();
   if(c.running){c.elapsed=elapsed(c);c.running=false;c.runAt=null;syncBench(c,now);save(K_CLOCK,c);toast("Gepauzeerd");}
   else{
-    if(elapsed(c)>=HALF_MS){toast(c.half===1?"Helft voorbij · tik Rust":"Wedstrijd is afgelopen");return;}
+    if(elapsed(c)>=halfMs()){toast(c.half===1?"Helft voorbij · tik Rust":"Wedstrijd is afgelopen");return;}
     if(!c.started){c.started=true;save(K_START,positions);save(K_SHOOT,null);save(K_ORDER,newOrder());}
     c.running=true;c.runAt=now;syncBench(c,now);save(K_CLOCK,c);toast(c.elapsed?"Hervat":"Wedstrijd gestart");
   }
@@ -715,11 +761,11 @@ function toggleClock(){
 }
 function nextHalf(){
   var c=clockState(),now=Date.now();
-  if(c.half===2&&elapsed(c)>=HALF_MS){toast("Wedstrijd is al afgelopen");return;}
+  if(c.half===2&&elapsed(c)>=halfMs()){toast("Wedstrijd is al afgelopen");return;}
   var msg=c.half===1?"Naar de rust en de 2e helft?":"Wedstrijd beëindigen?";
-  if(elapsed(c)<HALF_MS-1000&&!confirm(msg))return;
+  if(elapsed(c)<halfMs()-1000&&!confirm(msg))return;
   if(c.running){c.elapsed=elapsed(c);c.running=false;c.runAt=null;syncBench(c,now);}
-  if(c.half===1){c.half=2;c.elapsed=0;toast("2e helft klaar · tik Start");}else{c.elapsed=HALF_MS;toast("Wedstrijd afgelopen");}
+  if(c.half===1){c.half=2;c.elapsed=0;toast("2e helft klaar · tik Start");}else{c.elapsed=halfMs();toast("Wedstrijd afgelopen");}
   save(K_CLOCK,c);updateHud();
 }
 function resetMatch(){
@@ -783,9 +829,9 @@ function decorateMatch(){
     el.classList.toggle("choice",on&&!!selOut&&el.classList.contains("wissel"));
     var kt=el.querySelector(".keeper-tag");if(kt)kt.remove();
     if(on&&n===k){var t=document.createElement("div");t.className="keeper-tag";t.textContent="🧤";el.querySelector(".av").appendChild(t);}
-    var s=el.querySelector(".stat");if(s&&on&&!el.classList.contains("coach")){var bm=benchMs(c,n),pm=Math.max(0,(c.half-1)*HALF_MS+elapsed(c)-bm);s.textContent=fmt(pm);s.className="stat "+playKleur(pm);}
+    var s=el.querySelector(".stat");if(s&&on&&!el.classList.contains("coach")){var bm=benchMs(c,n),pm=Math.max(0,(c.half-1)*halfMs()+elapsed(c)-bm);s.textContent=fmt(pm);s.className="stat "+playKleur(pm);}
     var sb=el.querySelector(".so-badge");if(sb)sb.textContent=st.count[n]||0;
-    var bt=el.querySelector(".bt-badge");if(bt&&on){var bm=benchMs(c,n),ms=Math.max(0,(c.half-1)*HALF_MS+elapsed(c)-bm);bt.textContent=fmt(ms);bt.className="bt-badge "+playKleur(ms);}
+    var bt=el.querySelector(".bt-badge");if(bt&&on){var bm=benchMs(c,n),ms=Math.max(0,(c.half-1)*halfMs()+elapsed(c)-bm);bt.textContent=fmt(ms);bt.className="bt-badge "+playKleur(ms);}
   });
   if(on){renderOrder();updatePlayLegend();}
   var h=$("match-hint");h.classList.toggle("act",on&&!!selOut);
@@ -793,10 +839,10 @@ function decorateMatch(){
 }
 function updateHud(){
   if(mode!=="wedstrijd")return;
-  var c=clockState(),left=HALF_MS-elapsed(c);updateScore();
-  if(c.running&&left<=0){c.elapsed=HALF_MS;c.running=false;c.runAt=null;syncBench(c,Date.now());save(K_CLOCK,c);toast(c.half===1?"Einde 1e helft":"Einde wedstrijd");if(navigator.vibrate)navigator.vibrate(400);}
+  var c=clockState(),left=halfMs()-elapsed(c);updateScore();
+  if(c.running&&left<=0){c.elapsed=halfMs();c.running=false;c.runAt=null;syncBench(c,Date.now());save(K_CLOCK,c);toast(c.half===1?"Einde 1e helft":"Einde wedstrijd");if(navigator.vibrate)navigator.vibrate(400);}
   $("clock").textContent=fmtLeft(left);$("clock").classList.toggle("warn",left<=5*60*1000);
-  $("half-label").textContent=(c.half===2?"2e helft":"1e helft")+(left>0?" · nog":" · klaar");$("prog").style.width=Math.min(100,elapsed(c)/HALF_MS*100)+"%";
+  $("half-label").textContent=(c.half===2?"2e helft":"1e helft")+(left>0?" · nog":" · klaar");$("prog").style.width=Math.min(100,elapsed(c)/halfMs()*100)+"%";
   var b=$("btn-clock"),bs=c.running?"run":"stop";if(b.dataset.st!==bs){b.dataset.st=bs;b.innerHTML=c.running?PAUSE_SVG:PLAY_SVG;}b.classList.toggle("running",c.running);b.setAttribute("aria-label",c.running?"Pauze":(c.started?"Hervat":"Start"));
   $("half-txt").textContent=c.half===1?"Rust":"Einde";$("btn-half").disabled=c.half===2&&left<=0;
   var st=shootState(),o=shootOrder(st),n=o[0];
@@ -970,7 +1016,8 @@ function renderTeam(){
     h+="<tr><td>"+t[0]+"</td>"+names.map(function(n){var v=cnt[n]||0;sum+=v;tot[n]=(tot[n]||0)+v;return"<td>"+(v?'<span class="n">'+v+"</span>":'<span class="z">0</span>')+"</td>";}).join("")+"<td><b>"+sum+"</b></td></tr>";});
   h+="<tr><td>Totaal</td>"+names.map(function(n){return"<td><b>"+(tot[n]||0)+"</b></td>";}).join("")+"<td></td></tr></tbody>";
   $("taken").innerHTML=h;
-  $("roster").innerHTML=SPELERS.map(function(s){var co=s.zone==="coach",ps=posParts(s.pos);
+  applySurfaceMode();
+    $("roster").innerHTML=SPELERS.map(function(s){var co=s.zone==="coach",ps=posParts(s.pos);
     var chips=co?'<span class="chip c-coach">Coach</span>':(ps.length?ps.map(function(p){return'<span class="chip c-'+(posKey(p)||"geen")+'">'+esc(p)+"</span>";}).join(""):'<span class="chip c-geen">Geen voorkeur</span>');
     return'<div class="roster-row"><div class="ri" style="'+(co?"background:#1E3A5F":"")+'">'+esc(s.initials)+'</div><div class="rn">'+esc(s.name)+"</div>"+chips+"</div>";}).join("");
 }
@@ -1174,7 +1221,7 @@ function showTab(name){
   document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active");});
   var veld=name==="opstelling"||name==="wedstrijd";
   $(veld?"page-veld":"page-"+name).classList.add("active");
-  if(drag)onCancel();selOut=null;mode=name;
+  if(drag)onCancel();selOut=null;mode=name;applySurfaceMode();
   document.body.classList.toggle("match",name==="wedstrijd");document.body.classList.toggle("dark",veld);closeMenu();
   if(veld){
     setAppHeight();
@@ -1197,6 +1244,7 @@ function init(){
   $("photo-input").addEventListener("change",onPhoto);
   $("file-input").addEventListener("change",onExcel);
   $("picker").addEventListener("change",onPick);
+    $("surface-switch").addEventListener("click",function(e){var b=e.target.closest("button[data-surface]");if(b)setSurfaceMode(b.dataset.surface);});
   $("order-toggle").addEventListener("click",function(){var d=this.closest(".dugout"),on=d.classList.toggle("order-open");this.setAttribute("aria-expanded",on?"true":"false");if(on){renderOrder();requestAnimationFrame(orderMore);}});
     $("order-list").addEventListener("scroll",orderMore,{passive:true});
   $("btn-share").addEventListener("click",shareLineup);$("card-share").addEventListener("click",cardShare);$("card-dl").addEventListener("click",cardDownload);$("card-close").addEventListener("click",cardClose);$("card-modal").addEventListener("click",function(e){if(e.target.id==="card-modal")cardClose();});
@@ -1257,7 +1305,7 @@ function init(){
   var rt;function relayout(){clearTimeout(rt);rt=setTimeout(function(){setAppHeight();orderSig="";render();},120);}
   window.addEventListener("resize",relayout);window.addEventListener("orientationchange",relayout);if(window.visualViewport)window.visualViewport.addEventListener("resize",relayout);
   document.addEventListener("visibilitychange",function(){if(!document.hidden)updateHud();});
-  setAppHeight();renderOverview();renderTeam();fillPicker();updateScore();
+  setAppHeight();renderOverview();fillPicker();applySurfaceMode();renderTeam();updateScore();
   loadPublishedLineup();
   
 }
