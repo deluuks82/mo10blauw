@@ -18,8 +18,8 @@
       },
       "Isabel": {
         "zone": "veld",
-        "sx": 439.67,
-        "sy": 215
+        "sx": 340.87,
+        "sy": 105.68
       },
       "Renske": {
         "zone": "wissel"
@@ -41,16 +41,16 @@
       },
       "Faye": {
         "zone": "veld",
-        "sx": 373.8,
-        "sy": 324.32
+        "sx": 439.67,
+        "sy": 215
       },
       "Doutzen": {
         "zone": "veld",
-        "sx": 340.87,
-        "sy": 105.68
+        "sx": 373.8,
+        "sy": 324.32
       }
     },
-    "updatedAt": "2026-11-16T15:45:57.922Z"
+    "updatedAt": "2026-11-16T20:58:47.333Z"
   },
   "zaal": {
     "teamNaam": "MHC Alliance MO10",
