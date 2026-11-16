@@ -490,6 +490,8 @@ body{letter-spacing:0}
 .team,.page-head b,.opp{font-weight:800;letter-spacing:-.02em}
 .kpi b,.times b,.d b,.clock strong,.score-num{font-weight:700;letter-spacing:-.02em}
 .sec,.sr-rule-title,.blk-title{font-weight:700;letter-spacing:-.01em}
+/* KPI-blok verborgen (ids blijven bestaan voor de JavaScript) */
+.kpis{display:none}
 /* ---------- beweging ---------- */
 @media (prefers-reduced-motion:no-preference){
   .page.active{animation:mhcFade .38s cubic-bezier(.2,.7,.2,1)}
@@ -677,7 +679,7 @@ body{letter-spacing:0}
       <div class="fr"><code>A</code> Speelsters (vanaf rij 2) · <code>B</code> Positievoorkeur · <code>C</code> Coaches</div>
       <div class="fr">Meerdere voorkeuren scheiden met <b>/</b>, bijvoorbeeld <b>Midden / Voor</b>.</div>
     </div>
-    <div class="version">Versie 2.2 · design-update</div>
+    <div class="version">Versie 2.3 · design-update</div>
   </div>
 </section>
 
