@@ -4,12 +4,12 @@
     "teamNaam": "MO10 - Blauw",
     "positions": {
       "Ada": {
-        "zone": "veld",
-        "sx": 242.07,
-        "sy": 324.32
+        "zone": "wissel"
       },
       "Nina": {
-        "zone": "afgemeld"
+        "zone": "veld",
+        "sx": 143.27,
+        "sy": 215
       },
       "Mathilde": {
         "zone": "veld",
@@ -18,39 +18,39 @@
       },
       "Isabel": {
         "zone": "veld",
-        "sx": 340.87,
-        "sy": 105.68
+        "sx": 439.67,
+        "sy": 215
       },
       "Renske": {
+        "zone": "wissel"
+      },
+      "Vivièn": {
+        "zone": "veld",
+        "sx": 209.13,
+        "sy": 324.32
+      },
+      "Rosie": {
         "zone": "veld",
         "sx": 25.94,
         "sy": 215
       },
-      "Vivièn": {
+      "Noralie": {
         "zone": "veld",
         "sx": 275,
         "sy": 215
       },
-      "Rosie": {
-        "zone": "veld",
-        "sx": 406.73,
-        "sy": 324.32
-      },
-      "Noralie": {
-        "zone": "veld",
-        "sx": 143.27,
-        "sy": 215
-      },
       "Faye": {
         "zone": "veld",
-        "sx": 439.67,
-        "sy": 215
+        "sx": 373.8,
+        "sy": 324.32
       },
       "Doutzen": {
-        "zone": "wissel"
+        "zone": "veld",
+        "sx": 340.87,
+        "sy": 105.68
       }
     },
-    "updatedAt": "2026-11-14T11:00:34.513Z"
+    "updatedAt": "2026-11-16T15:45:57.922Z"
   },
   "zaal": {
     "teamNaam": "MHC Alliance MO10",
