@@ -317,6 +317,12 @@ body.match .order-toggle{display:flex}body.match .dugout.order-open .order-toggl
 .match-no{min-width:74px;font-size:9px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#007856,#005A40);padding:7px 8px;border-radius:10px;text-align:center;box-shadow:0 2px 7px rgba(0,120,86,.18)}
 .day-match div{min-width:0;flex:1}.day-match b{display:block;font-size:14.5px;line-height:1.25;font-weight:900;color:#151515;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.day-match small{display:flex;align-items:center;color:var(--mut);font-size:11.5px;font-weight:650;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.day-match small:before{content:"⌖";font-size:13px;color:var(--green);margin-right:4px;font-weight:900}
 .day-matches.compact{margin:0;padding:10px 14px 12px;background:#F7F7F4}.day-matches.compact .day-match{box-shadow:none}
+.keeper-list{display:flex;flex-direction:column;gap:2px;white-space:normal;overflow:visible}
+.keeper-list>span{display:flex;align-items:baseline;gap:6px;min-width:0;line-height:1.15}
+.keeper-list em{flex:0 0 auto;font-style:normal;font-size:9px;font-weight:800;letter-spacing:.04em;color:var(--green);background:var(--green-light);border-radius:5px;padding:2px 4px}
+.keeper-list strong{min-width:0;font-size:12.5px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.duty b:has(.keeper-list){overflow:visible;white-space:normal;text-overflow:clip}
+@media (max-width:430px){.duty:has(.keeper-list){min-height:64px}.keeper-list{gap:3px}.keeper-list strong{font-size:12px}}
 .dug-sec[data-zone="afgemeld"] .bank .av{display:flex!important}.dug-sec[data-zone="afgemeld"] .bank{display:flex!important;align-items:center;gap:5px}/* ===================================================================
    MHC Alliance · premium skin v2.0  (alleen visueel, geen functionaliteit)
    Warm ivoor · diep bosgroen · smaragd-gradients · champagne accenten
@@ -1154,7 +1160,7 @@ function pxGroups(){
   return g;
 }
 function pxFirst(ms,k){for(var i=0;i<ms.length;i++){var v=ms[i][k];if(Array.isArray(v)?v.length:v)return v;}return"";}
-function pxDuty(ic,l,v,cls){return'<div class="duty'+(cls?" "+cls:"")+'"><div class="ic">'+ICON[ic]+'</div><div><small>'+l+'</small><b>'+esc(v)+'</b></div></div>';}
+function pxDuty(ic,l,v,cls){var val=(typeof v==="string"&&v.indexOf('<span class="keeper-list">')===0)?v:esc(v);return'<div class="duty'+(cls?" "+cls:"")+'"><div class="ic">'+ICON[ic]+'</div><div><small>'+l+'</small><b>'+val+'</b></div></div>';}
 // --- losse wedstrijd (veld-weergave) ---
 function pxDuties(m,metTenue){
   var th=m.type==="Thuis",h="",rij=m.rijden&&m.rijden.length?m.rijden.join(", "):"";
@@ -1187,7 +1193,7 @@ function pxListSingle(m){
 // --- zaalspeeldag (2+ wedstrijden op één dag) ---
 function pxGroupDuties(ms,metTenue){
   var m=ms[0],th=m.type==="Thuis",h="",rij=pxFirst(ms,"rijden");if(Array.isArray(rij))rij=rij.join(", ");
-  var zl=pxFirst(ms,"zaalleiding"),fl=pxFirst(ms,"fluiten"),kp=(function(){var a=ms.map(function(x,i){return x.keeper?("Wedstrijd "+(x.wedstrijd||i+1)+": "+x.keeper):"";}).filter(Boolean),v=ms.map(function(x){return x.keeper||"";}).filter(Boolean);return v.length>1&&v.some(function(x){return x!==v[0];})?a.join(" · "):pxFirst(ms,"keeper");})(),fr=pxFirst(ms,"fruit"),pv=pxFirst(ms,"plaats_verzamelen"),te=pxFirst(ms,"tenue"),af=pxFirst(ms,"afgemeld"),tv=pxFirst(ms,"tijd_verzamelen");
+  var zl=pxFirst(ms,"zaalleiding"),fl=pxFirst(ms,"fluiten"),kp=(function(){var v=ms.map(function(x){return x.keeper||"";}).filter(Boolean);if(v.length>1&&v.some(function(x){return x!==v[0];})){return '<span class="keeper-list">'+ms.map(function(x,i){return x.keeper?'<span><em>W'+esc(x.wedstrijd||String(i+1))+'</em><strong>'+esc(x.keeper)+'</strong></span>':'';}).filter(Boolean).join('')+'</span>';}return esc(pxFirst(ms,"keeper"));})(),fr=pxFirst(ms,"fruit"),pv=pxFirst(ms,"plaats_verzamelen"),te=pxFirst(ms,"tenue"),af=pxFirst(ms,"afgemeld"),tv=pxFirst(ms,"tijd_verzamelen");
   if(tv)h+=pxDuty("timer","Verzamelen",tv);
   if(pv)h+=pxDuty("pin","Verzamelen bij",pv);
   if(!th||rij)h+=pxDuty("car","Rijden",rij||"NNB");
