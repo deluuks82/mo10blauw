@@ -1339,9 +1339,17 @@ var LIJNKLEUR={keeper:"#FDE047",achter:"#60A5FA",midden:"#C4B5FD",voor:"#FB7185"
     x.restore();
   }
 function formatShareLocation(v){var t=String(v||"").trim();if(!t)return"";var m=t.match(/^(.*?)(?:\s*·\s*)?(Z\s*-?\s*\d+)$/i);if(!m)return t;var club=String(m[1]||"").trim(),veld=m[2].replace(/\s+/g,"").replace(/^Z-?/i,"Z-");return(club?club+" · ":"")+"Veld: "+veld;}
+function drawShareZaal(x,fx,fy,FW,FH){
+  x.save();x.strokeStyle="rgba(255,255,255,.78)";x.lineWidth=3;
+  var pad=12;x.strokeRect(fx+pad,fy+pad,FW-2*pad,FH-2*pad);
+  x.beginPath();x.moveTo(fx+pad,fy+FH/2);x.lineTo(fx+FW-pad,fy+FH/2);x.stroke();
+  x.beginPath();x.arc(fx+FW/2,fy+FH/2,Math.min(FW,FH)*.12,0,Math.PI*2);x.stroke();
+  var gw=FW*.34,gh=FH*.12;x.strokeRect(fx+(FW-gw)/2,fy+pad,gw,gh);x.strokeRect(fx+(FW-gw)/2,fy+FH-pad-gh,gw,gh);
+  x.restore();
+}
 function shareLineup(){
   rebuildPlekken();
-  var i=parseInt($("picker").value,10),m=i>=0?MATCHES[i]:null,k=keeperName();
+  var i=parseInt($("picker").value,10),m=i>=0?MATCHES[i]:null,k=keeperName(),isZaal=!!(m&&String(m.competitie||"").toLowerCase()==="zaal");
   var veldN=Object.keys(plek),wis=players().filter(function(s){return zoneOf(s.name)==="wissel";}).map(function(s){return s.name;}),
       afg=players().filter(function(s){return zoneOf(s.name)==="afgemeld";}).map(function(s){return s.name;});
   var names=veldN.concat(wis);
@@ -1367,7 +1375,7 @@ function shareLineup(){
       det.push(["Start wedstrijd",m.tijd_wedstrijd||"NNB"]);
       if(m.veld)det.push([m.competitie==="Zaal"?"Veld in zaal":"Veld",m.veld]);
       if(m.zaalleiding)det.push(["Zaalleiding",m.zaalleiding]);
-      if(m.fluiten)det.push(["Fluiten",m.fluiten]);if(m.keeper)det.push(["Keepen",m.keeper]);if(m.fruit)det.push(["Fruit",m.fruit]);
+      if(m.fluiten)det.push(["Fluiten",m.fluiten]);if(m.keeper){var km=[m];if(isZaal)km=MATCHES.filter(function(q){return q.competitie==="Zaal"&&q.dag===m.dag&&q.maand===m.maand;});var kv=km.map(function(q){return q.keeper||"";}).filter(Boolean);var kt=(kv.length>1&&kv.some(function(v){return v!==kv[0];}))?km.map(function(q,j){return q.keeper?("W"+(q.wedstrijd||j+1)+" "+q.keeper):"";}).filter(Boolean).join(" · "):m.keeper;det.push(["Keepen",kt]);}if(m.fruit)det.push(["Fruit",m.fruit]);
       if(m.rijden&&m.rijden.length)det.push(["Rijden",m.rijden.join(", ")]);else if(!th)det.push(["Rijden","NNB"]);
       if(m.tenue)det.push(["Tenue",m.tenue]);
     }
@@ -1380,11 +1388,21 @@ function shareLineup(){
     var fieldH=availH,fieldW=Math.round(fieldH*590/954);
     if(fieldW>rightW){fieldW=rightW;fieldH=Math.round(fieldW*954/590);}
     var fx=rightX+(rightW-fieldW)/2,fy=bodyY+(availH-fieldH)/2;
-    x.save();roundRect(x,fx,fy,fieldW,fieldH,26);x.clip();for(var bb=0;bb<9;bb++){x.fillStyle=bb%2?"#006E4F":"#007856";x.fillRect(fx,fy+bb*fieldH/9,fieldW,fieldH/9+1);}drawShareField(x,fx,fy,fieldW,fieldH);
+    x.save();roundRect(x,fx,fy,fieldW,fieldH,26);x.clip();for(var bb=0;bb<9;bb++){x.fillStyle=isZaal?(bb%2?"#1889C9":"#2497D3"):(bb%2?"#006E4F":"#007856");x.fillRect(fx,fy+bb*fieldH/9,fieldW,fieldH/9+1);}if(isZaal)drawShareZaal(x,fx,fy,fieldW,fieldH);else drawShareField(x,fx,fy,fieldW,fieldH);
     var toonP=weergave(plek),R=Math.max(24,Math.round(fieldW*.066));
     veldN.forEach(function(n){var ss=mToSvg(toonP[n].mx,toonP[n].my),px=fx+(ss.sy/SVG_H)*fieldW,py=fy+(1-ss.sx/SVG_W)*fieldH;px=Math.min(fx+fieldW-R-14,Math.max(fx+R+14,px));py=Math.min(fy+fieldH-R-48,Math.max(fy+R+10,py));drawPlayer(x,n,px,py,R,ph[n],F,n===k);});x.restore();
 
-    var by=H-118,shownWis=wis.slice(0,6),step=88,totalWisW=shownWis.length?((shownWis.length-1)*step+68):68,wx=fx+(fieldW-totalWisW)/2;x.fillStyle="#6B6B6B";x.font="800 18px "+F;x.textAlign="center";x.fillText("WISSELS",fx+fieldW/2,by-8);shownWis.forEach(function(n){drawPlayer(x,n,wx+34,by+38,29,ph[n],F,false,true);wx+=step;});if(!wis.length){x.fillStyle="#111";x.font="700 22px "+F;x.fillText("Geen",fx+fieldW/2,by+35);x.textAlign="left";}else{x.textAlign="left";}if(afg.length){x.fillStyle="#6B6B6B";x.font="800 18px "+F;x.textAlign="right";x.fillText("AFGEMELD",W-P,by-8);x.fillStyle="#B91C1C";x.font="700 20px "+F;x.fillText(fit(x,afg.join(", "),330),W-P,by+30);x.textAlign="left";}
+    var footerY=H-142,footerH=102,footerGap=18,wisselW=Math.round((rightW-footerGap)*.60),afgW=rightW-footerGap-wisselW;
+    function footerCard(X,Y,WW,HH,label,tint,labelCol){x.fillStyle=tint;roundRect(x,X,Y,WW,HH,18);x.fill();x.fillStyle=labelCol;x.font="800 15px "+F;x.textAlign="left";x.fillText(label,X+18,Y+27);}
+    footerCard(rightX,footerY,wisselW,footerH,"WISSELS","#F3F1EC","#6B6B6B");
+    var shownWis=wis.slice(0,5),step=Math.min(72,(wisselW-42)/Math.max(1,shownWis.length)),wx=rightX+22;
+    if(shownWis.length){shownWis.forEach(function(n){drawPlayer(x,n,wx+22,footerY+61,20,ph[n],F,false,true);wx+=step;});}
+    else{x.fillStyle="#8A857D";x.font="700 18px "+F;x.fillText("Geen wissels",rightX+18,footerY+66);}
+    if(wis.length>5){x.fillStyle="#6B6B6B";x.font="800 16px "+F;x.fillText("+"+(wis.length-5),rightX+wisselW-38,footerY+67);}
+    var ax=rightX+wisselW+footerGap;footerCard(ax,footerY,afgW,footerH,"AFGEMELD",afg.length?"#FFF0F0":"#F3F1EC",afg.length?"#A92B2B":"#6B6B6B");
+    x.font="700 16px "+F;x.fillStyle=afg.length?"#A92B2B":"#8A857D";x.textAlign="left";var afTxt=afg.length?afg.join(", "):"Niemand";
+    function wrapFooterText(txt,maxW,maxLines){var words=txt.split(/\s+/),lines=[],line="";for(var wi=0;wi<words.length;wi++){var test=line?(line+" "+words[wi]):words[wi];if(x.measureText(test).width<=maxW){line=test;}else{if(line)lines.push(line);line=words[wi];if(lines.length===maxLines-1)break;}}if(line&&lines.length<maxLines)lines.push(line);if(lines.join(" ").length<txt.length&&lines.length){var rest=txt.slice(lines.slice(0,-1).join(" ").length).trim();lines[lines.length-1]=fit(x,rest,maxW);}return lines;}
+    var afLines=wrapFooterText(afTxt,afgW-36,3),afStart=footerY+56-(afLines.length-1)*10;afLines.forEach(function(line,li){x.fillText(line,ax+18,afStart+li*21);});
     c.toBlob(function(bl){cardBlob=bl;cardName="opstelling-"+(m?(m.dag+"-"+m.maand+"-"):"")+TEAM.replace(/\W+/g,"-")+".png";$("card-img").src=URL.createObjectURL(bl);$("card-modal").classList.add("open");},"image/png");
   });
   function drawInfoIcon(x,type,cx,cy,r){x.save();x.lineWidth=2.4;x.lineCap="round";x.lineJoin="round";x.strokeStyle="#087A59";x.fillStyle="#087A59";
@@ -1537,4 +1555,15 @@ function init(){
 }
 init();
 })();
-</script></body></html>
+</script></body></html><style>
+/* Compact keeper rows: preserve the same visual measure as the icon */
+.keeper-list{gap:1px}
+.keeper-list>span{line-height:1.05;gap:4px}
+.keeper-list em{width:20px;padding:0;background:transparent;border-radius:0;font-size:9px;line-height:11px;letter-spacing:0}
+.keeper-list strong{font-size:12px;line-height:11px}
+@media (max-width:430px){
+  .duty:has(.keeper-list){min-height:0}
+  .keeper-list{gap:1px}
+  .keeper-list strong{font-size:12px}
+}
+</style>
