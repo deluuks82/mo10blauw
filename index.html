@@ -296,7 +296,7 @@ tbody tr:last-child td:first-child{background:var(--bg)}
 .modal{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.75);align-items:center;justify-content:center;padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom))}
 .modal.open{display:flex}
 .modal-box{width:100%;max-width:440px;max-height:100%;display:flex;flex-direction:column;gap:12px}
-.modal-box img{width:100%;min-height:0;flex:1;object-fit:contain;border-radius:18px;background:#F5F5F2}
+.modal-box img{width:100%;min-height:0;flex:1;object-fit:contain;border-radius:0;background:transparent}
 .modal-btns{display:flex;gap:8px}
 .modal-btns .btn{margin:0;flex:1;padding:12px 6px}
 .btn.ghost-d{background:#2A2A2A;color:#fff}
@@ -1358,9 +1358,16 @@ function shareLineup(){
   var names=veldN.concat(wis);
   Promise.all([loadImg(document.querySelector(".logo").src)].concat(names.map(function(n){return loadImg(photos[n]);}))).then(function(imgs){
     var logo=imgs[0],ph={};names.forEach(function(n,j){ph[n]=imgs[j+1];});
-    var W=1080,H=1350,P=42,F="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+    var W=1080,P=42,F="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
+    // Vaste maatvoering: detailkolom en veld delen exact dezelfde boven- en onderkant.
+    var headH=330,bodyY=headH+28,availH=790,footerGapY=24,footerH=150,bandGap=30,bandH=64;
+    var footerY=bodyY+availH+footerGapY,bandY=footerY+footerH+bandGap;
+    var H=bandY+bandH,exportRadius=32,edgeGuard=0;
+    // Echte transparante PNG-hoeken; de donkere onderband maakt de ronding zichtbaar, net als bovenin.
     var c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
-    x.fillStyle="#F5F5F2";x.fillRect(0,0,W,H);
+    x.clearRect(0,0,W,H);
+    x.save();roundRect(x,edgeGuard,edgeGuard,W-edgeGuard*2,H-edgeGuard*2,exportRadius);x.clip();
+    x.fillStyle="#F5F5F2";x.fillRect(edgeGuard,edgeGuard,W-edgeGuard*2,H-edgeGuard*2);
     var safeTop=110,headH=330,contentTop=112;
     var bg=x.createLinearGradient(0,0,W,headH);bg.addColorStop(0,"#101312");bg.addColorStop(.58,"#0B1D17");bg.addColorStop(1,"#064B38");x.fillStyle=bg;x.fillRect(0,0,W,headH);
     if(logo)x.drawImage(logo,P,contentTop-12,74,90);
@@ -1368,9 +1375,12 @@ function shareLineup(){
     if(m){var d=matchDate(m);x.font="900 43px "+F;x.fillText(fit(x,(m.type==="Thuis"?"Thuis tegen ":"Uit bij ")+(m.tegenstander||""),W-2*P),P,contentTop+136);
       x.fillStyle="rgba(255,255,255,.72)";x.font="600 27px "+F;x.fillText(fit(x,cap(DAGEN[d.getDay()])+" "+d.getDate()+" "+MAANDEN[d.getMonth()]+(m.locatie?" · "+m.locatie:"")+(m.veld?" · Veld: "+m.veld:""),W-2*P),P,contentTop+190);
     }else{x.fillStyle="rgba(255,255,255,.65)";x.font="600 23px "+F;x.fillText("Seizoen 2026-2027",P+94,safeTop+130);}
-    x.fillStyle=m&&m.type!=="Thuis"?"#D93434":"#087A59";x.fillRect(0,headH-9,W,9);
+    if(m&&m.type!=="Thuis"){
+      var sep=x.createLinearGradient(0,0,W,0);sep.addColorStop(0,"#8E1F2A");sep.addColorStop(.55,"#D63C3C");sep.addColorStop(1,"#F2665A");x.fillStyle=sep;
+    }else{x.fillStyle="#087A59";}
+    x.fillRect(0,headH-9,W,9);
 
-    var bodyY=headH+28,leftW=430,gap=30,rightX=P+leftW+gap,rightW=W-P-rightX;
+    var gap=30,fieldH=availH,fieldW=Math.round(fieldH*590/954),fx=W-P-fieldW,fy=bodyY,leftW=fx-gap-P;
     var det=[];
     if(m){var th=m.type==="Thuis";
       det.push(["Verzamelen",m.tijd_verzamelen||"NNB"]);
@@ -1382,30 +1392,35 @@ function shareLineup(){
       if(m.rijden&&m.rijden.length)det.push(["Rijden",m.rijden.join(", ")]);else if(!th)det.push(["Rijden","NNB"]);
       if(m.tenue)det.push(["Tenue",m.tenue]);
     }
-    var reserveH=150,availH=H-bodyY-reserveH-30,cardGap=10,note=m&&m.bijzonderheden?1:0,totalCards=det.length+note;
-    var cardH=Math.max(70,Math.min(104,Math.floor((availH-cardGap*Math.max(0,totalCards-1))/Math.max(1,totalCards))));
+    var note=m&&m.bijzonderheden?1:0,totalCards=Math.max(1,det.length+note);
+    var cardH=Math.max(56,Math.min(124,Math.floor((availH-10*(totalCards-1))/totalCards)));
+    var cardGap=totalCards>1?(availH-cardH*totalCards)/(totalCards-1):0;
     var ly=bodyY;
     det.forEach(function(r){var cy=ly+cardH/2,T=Math.min(52,cardH-24),tx=P+22+T+20;x.fillStyle="#fff";roundRect(x,P,ly,leftW,cardH,20);x.fill();x.fillStyle="#E6F1EC";roundRect(x,P+22,cy-T/2,T,T,14);x.fill();drawInfoIcon(x,r[0],P+22+T/2,cy,Math.round(T*.27));x.fillStyle="#7A746A";x.font="700 16px "+F;x.fillText(r[0].toUpperCase(),tx,cy-9);x.fillStyle="#111";x.font="800 25px "+F;x.fillText(fit(x,r[1],leftW-(tx-P)-22),tx,cy+23);ly+=cardH+cardGap;});
     if(note){x.fillStyle="#FFF7E6";roundRect(x,P,ly,leftW,cardH,20);x.fill();var ncy=ly+cardH/2;x.fillStyle="#92400E";x.font="700 16px "+F;x.fillText("BIJZONDERHEDEN",P+24,ncy-9);x.font="700 21px "+F;x.fillText(fit(x,m.bijzonderheden,leftW-48),P+24,ncy+21);}
 
-    var fieldH=availH,fieldW=Math.round(fieldH*590/954);
-    if(fieldW>rightW){fieldW=rightW;fieldH=Math.round(fieldW*954/590);}
-    var fx=rightX+(rightW-fieldW)/2,fy=bodyY+(availH-fieldH)/2;
     x.save();roundRect(x,fx,fy,fieldW,fieldH,26);x.clip();for(var bb=0;bb<9;bb++){x.fillStyle=isZaal?(bb%2?"#1889C9":"#2497D3"):(bb%2?"#006E4F":"#007856");x.fillRect(fx,fy+bb*fieldH/9,fieldW,fieldH/9+1);}if(isZaal)drawShareZaal(x,fx,fy,fieldW,fieldH);else drawShareField(x,fx,fy,fieldW,fieldH);
     var toonP=weergave(plek),R=Math.max(24,Math.round(fieldW*.066));
     veldN.forEach(function(n){var ss=mToSvg(toonP[n].mx,toonP[n].my),px=fx+(ss.sy/SVG_H)*fieldW,py=fy+(1-ss.sx/SVG_W)*fieldH;px=Math.min(fx+fieldW-R-14,Math.max(fx+R+14,px));py=Math.min(fy+fieldH-R-48,Math.max(fy+R+10,py));drawPlayer(x,n,px,py,R,ph[n],F,n===k);});x.restore();
 
-    var footerY=H-142,footerH=102,footerGap=18,wisselW=Math.round((rightW-footerGap)*.60),afgW=rightW-footerGap-wisselW;
-    function footerCard(X,Y,WW,HH,label,tint,labelCol){x.fillStyle=tint;roundRect(x,X,Y,WW,HH,18);x.fill();x.fillStyle=labelCol;x.font="800 15px "+F;x.textAlign="left";x.fillText(label,X+18,Y+27);}
-    footerCard(rightX,footerY,wisselW,footerH,"WISSELS","#F3F1EC","#6B6B6B");
-    var shownWis=wis.slice(0,5),step=Math.min(72,(wisselW-42)/Math.max(1,shownWis.length)),wx=rightX+22;
-    if(shownWis.length){shownWis.forEach(function(n){drawPlayer(x,n,wx+22,footerY+61,20,ph[n],F,false,true);wx+=step;});}
-    else{x.fillStyle="#8A857D";x.font="700 18px "+F;x.fillText("Geen wissels",rightX+18,footerY+66);}
-    if(wis.length>5){x.fillStyle="#6B6B6B";x.font="800 16px "+F;x.fillText("+"+(wis.length-5),rightX+wisselW-38,footerY+67);}
-    var ax=rightX+wisselW+footerGap;footerCard(ax,footerY,afgW,footerH,"AFGEMELD",afg.length?"#FFF0F0":"#F3F1EC",afg.length?"#A92B2B":"#6B6B6B");
-    x.font="700 16px "+F;x.fillStyle=afg.length?"#A92B2B":"#8A857D";x.textAlign="left";var afTxt=afg.length?afg.join(", "):"Niemand";
+    function footerCard(X,Y,WW,HH,label,tint,labelCol){x.fillStyle=tint;roundRect(x,X,Y,WW,HH,20);x.fill();x.fillStyle=labelCol;x.font="800 15px "+F;x.textAlign="left";x.fillText(label,X+20,Y+30);}
+    footerCard(P,footerY,leftW,footerH,"WISSELS","#ECE9E2","#6B6B6B");
+    var wR=26,wFont=18,wPad=20,wGap=14,wCy=footerY+44+wR;
+    x.font="800 "+wFont+"px "+F;
+    var slots=wis.map(function(n){return{n:n,w:Math.max(2*wR+8,x.measureText(n).width+24)};});
+    var shown=[],used=0,maxW=leftW-2*wPad;
+    for(var si=0;si<slots.length;si++){var extra=(shown.length?wGap:0)+slots[si].w,rest=slots.length-si-1;if(used+extra+(rest?56:0)>maxW)break;shown.push(slots[si]);used+=extra;}
+    if(shown.length){var wx=P+wPad;shown.forEach(function(o){drawPlayer(x,o.n,wx+o.w/2,wCy,wR,ph[o.n],F,false,true,wFont);wx+=o.w+wGap;});
+      if(shown.length<wis.length){x.fillStyle="#6B6B6B";x.font="800 20px "+F;x.textAlign="left";x.fillText("+"+(wis.length-shown.length),wx+4,wCy+7);}}
+    else{x.fillStyle="#8A857D";x.font="700 20px "+F;x.textAlign="left";x.fillText("Geen wissels",P+wPad,wCy+7);}
+    var ax=fx,afgW=fieldW;footerCard(ax,footerY,afgW,footerH,"AFGEMELD",afg.length?"#FFF0F0":"#ECE9E2",afg.length?"#A92B2B":"#6B6B6B");
+    x.font="700 20px "+F;x.fillStyle=afg.length?"#A92B2B":"#8A857D";x.textAlign="left";var afTxt=afg.length?afg.join(", "):"Niemand";
     function wrapFooterText(txt,maxW,maxLines){var words=txt.split(/\s+/),lines=[],line="";for(var wi=0;wi<words.length;wi++){var test=line?(line+" "+words[wi]):words[wi];if(x.measureText(test).width<=maxW){line=test;}else{if(line)lines.push(line);line=words[wi];if(lines.length===maxLines-1)break;}}if(line&&lines.length<maxLines)lines.push(line);if(lines.join(" ").length<txt.length&&lines.length){var rest=txt.slice(lines.slice(0,-1).join(" ").length).trim();lines[lines.length-1]=fit(x,rest,maxW);}return lines;}
-    var afLines=wrapFooterText(afTxt,afgW-36,3),afStart=footerY+56-(afLines.length-1)*10;afLines.forEach(function(line,li){x.fillText(line,ax+18,afStart+li*21);});
+    var afLines=wrapFooterText(afTxt,afgW-40,3),afStart=footerY+66;afLines.forEach(function(line,li){x.fillText(line,ax+20,afStart+li*27);});
+    // Donkere onderband: sluit de kaart af in dezelfde stijl als de kop, zodat de afgeronde onderhoeken zichtbaar zijn.
+    var bb2=x.createLinearGradient(0,bandY,W,bandY+bandH);bb2.addColorStop(0,"#101312");bb2.addColorStop(.58,"#0B1D17");bb2.addColorStop(1,"#064B38");x.fillStyle=bb2;x.fillRect(0,bandY,W,H-bandY);
+    if(m&&m.type!=="Thuis"){var sep2=x.createLinearGradient(0,0,W,0);sep2.addColorStop(0,"#8E1F2A");sep2.addColorStop(.55,"#D63C3C");sep2.addColorStop(1,"#F2665A");x.fillStyle=sep2;}else x.fillStyle="#087A59";x.fillRect(0,bandY,W,6);
+    x.restore();
     c.toBlob(function(bl){cardBlob=bl;cardName="opstelling-"+(m?(m.dag+"-"+m.maand+"-"):"")+TEAM.replace(/\W+/g,"-")+".png";$("card-img").src=URL.createObjectURL(bl);$("card-modal").classList.add("open");},"image/png");
   });
   function drawInfoIcon(x,type,cx,cy,r){x.save();x.lineWidth=2.4;x.lineCap="round";x.lineJoin="round";x.strokeStyle="#087A59";x.fillStyle="#087A59";
@@ -1413,13 +1428,13 @@ function shareLineup(){
     else if(type==="Fluiten"){x.beginPath();x.moveTo(cx-r+2,cy-4);x.lineTo(cx+3,cy-4);x.lineTo(cx+r-2,cy+3);x.lineTo(cx+4,cy+7);x.lineTo(cx-r+2,cy+5);x.closePath();x.stroke();x.beginPath();x.arc(cx+3,cy,2.4,0,Math.PI*2);x.fill();x.beginPath();x.moveTo(cx-r+7,cy-4);x.lineTo(cx-r+9,cy-10);x.lineTo(cx,cy-10);x.stroke();}
     else if(type==="Keepen"){x.beginPath();x.arc(cx,cy-2,r-5,Math.PI,0);x.lineTo(cx+r-5,cy+8);x.lineTo(cx+7,cy+r-3);x.lineTo(cx-7,cy+r-3);x.lineTo(cx-r+5,cy+8);x.closePath();x.stroke();for(var yy=-2;yy<=7;yy+=5){x.beginPath();x.moveTo(cx-r+6,cy+yy);x.lineTo(cx+r-6,cy+yy);x.stroke();}x.beginPath();x.moveTo(cx,cy-r+4);x.lineTo(cx,cy+r-3);x.stroke();}
     else if(type==="Fruit"){x.beginPath();x.arc(cx,cy+2,r-6,0,Math.PI*2);x.stroke();x.beginPath();x.moveTo(cx,cy-r+6);x.quadraticCurveTo(cx+2,cy-r,cx+7,cy-r+2);x.stroke();x.beginPath();x.moveTo(cx+3,cy-r+4);x.quadraticCurveTo(cx+11,cy-r+7,cx+10,cy-4);x.stroke();}
-    else if(type==="Tenue"){var z=r-2;x.save();x.beginPath();x.moveTo(cx-z,cy-z+5);x.lineTo(cx-6,cy-z);x.lineTo(cx-3,cy-z+4);x.lineTo(cx+3,cy-z+4);x.lineTo(cx+6,cy-z);x.lineTo(cx+z,cy-z+5);x.lineTo(cx+z-4,cy-2);x.lineTo(cx+8,cy);x.lineTo(cx+8,cy+z);x.lineTo(cx-8,cy+z);x.lineTo(cx-8,cy);x.lineTo(cx-z+4,cy-2);x.closePath();x.clip();x.fillStyle="#fff";x.fillRect(cx-z,cy-z,2*z,2*z);/* beide mouwen zwart */x.fillStyle="#111";x.fillRect(cx-z,cy-z,cx-(cx-z)-7,z+7);x.fillRect(cx+7,cy-z,z-7,z+7);/* romp: linksboven zwart, rechtsonder zwart; twee witte vlakken */x.fillRect(cx-8,cy-z+4,8,z-2);x.fillRect(cx,cy+1,8,z-1);x.restore();x.strokeStyle="#111";x.beginPath();x.moveTo(cx-z,cy-z+5);x.lineTo(cx-6,cy-z);x.lineTo(cx-3,cy-z+4);x.lineTo(cx+3,cy-z+4);x.lineTo(cx+6,cy-z);x.lineTo(cx+z,cy-z+5);x.lineTo(cx+z-4,cy-2);x.lineTo(cx+8,cy);x.lineTo(cx+8,cy+z);x.lineTo(cx-8,cy+z);x.lineTo(cx-8,cy);x.lineTo(cx-z+4,cy-2);x.closePath();x.stroke();}
-    else if(type==="Rijden"||type==="Verzamelen bij"){x.beginPath();x.moveTo(cx-r+2,cy+5);x.lineTo(cx-r+6,cy-4);x.lineTo(cx+6,cy-4);x.lineTo(cx+r-2,cy+5);x.closePath();x.stroke();x.beginPath();x.arc(cx-r+6,cy+8,3,0,Math.PI*2);x.arc(cx+r-6,cy+8,3,0,Math.PI*2);x.stroke();}
+    else if(type==="Tenue"){var sz=r*2+4;x.save();x.translate(cx-sz/2,cy-sz/2);x.scale(sz/24,sz/24);x.lineWidth=2.2;x.strokeStyle="#087A59";x.stroke(new Path2D("M8 3l-5 3 2 4 2.5-1V21h9V9l2.5 1 2-4-5-3a4 4 0 0 1-8 0z"));x.restore();}
+      else if(type==="Rijden"||type==="Verzamelen bij"){x.beginPath();x.moveTo(cx-r+2,cy+5);x.lineTo(cx-r+6,cy-4);x.lineTo(cx+6,cy-4);x.lineTo(cx+r-2,cy+5);x.closePath();x.stroke();x.beginPath();x.arc(cx-r+6,cy+8,3,0,Math.PI*2);x.arc(cx+r-6,cy+8,3,0,Math.PI*2);x.stroke();}
     else{x.beginPath();x.arc(cx,cy,r-5,0,Math.PI*2);x.stroke();}
     x.restore();}
   function fit(x,t,w){t=String(t);if(x.measureText(t).width<w)return t;while(t.length>3&&x.measureText(t+"…").width>w)t=t.slice(0,-1);return t+"…";}
 }
-function drawPlayer(x,n,px,py,R,img,F,isK,light){
+function drawPlayer(x,n,px,py,R,img,F,isK,light,nameSize){
   var s=speler(n)||{},lj=posLijn(s.pos);
   x.save();x.shadowColor="rgba(0,0,0,.35)";x.shadowBlur=12;x.shadowOffsetY=4;
   x.beginPath();x.arc(px,py,R,0,Math.PI*2);var g=x.createLinearGradient(px-R,py-R,px+R,py+R);g.addColorStop(0,"#0A8A64");g.addColorStop(1,"#004A35");x.fillStyle=g;x.fill();x.restore();
@@ -1427,7 +1442,7 @@ function drawPlayer(x,n,px,py,R,img,F,isK,light){
   else{x.fillStyle="#fff";x.font="900 "+Math.round(R*.62)+"px "+F;x.textAlign="center";x.textBaseline="middle";x.fillText(s.initials||n.slice(0,2),px,py+1);x.textBaseline="alphabetic";x.textAlign="left";}
   x.lineWidth=Math.max(4,R*.12);x.strokeStyle=LIJNKLEUR[lj]||"#fff";x.beginPath();x.arc(px,py,R,0,Math.PI*2);x.stroke();
   if(isK){x.font=Math.round(R*.55)+"px "+F;x.fillText("🧤",px-R-8,py-R+16);}
-  x.font="800 "+Math.round(Math.max(20,R*.36))+"px "+F;var tw=x.measureText(n).width+24,th=Math.round(Math.max(30,R*.56));
+  var nf=nameSize||Math.round(Math.max(20,R*.36));x.font="800 "+nf+"px "+F;var tw=x.measureText(n).width+24,th=nameSize?nameSize+12:Math.round(Math.max(30,R*.56));
   x.fillStyle=light?"rgba(0,0,0,.08)":"rgba(0,0,0,.6)";roundRect(x,px-tw/2,py+R+8,tw,th,th/2);x.fill();
   x.fillStyle=light?"#111":"#fff";x.textAlign="center";x.fillText(n,px,py+R+8+th*.72);x.textAlign="left";
 }
