@@ -992,10 +992,12 @@ function scoreState(){var s=load(K_SCORE,null);if(!s)s={us:0,them:0};s.us=Math.m
   function setLiveState(kind,text){var e=$("live-state");if(!e)return;e.className="live-state "+(kind||"");e.querySelector("span").textContent=text;}
   async function requireCoach(){if(!SB){setLiveState("err","Geen verbinding");return false;}var r=await SB.auth.getSession();if(r.data&&r.data.session)return true;$("live-auth-msg").textContent="";$("live-auth").classList.add("open");setTimeout(function(){$("live-email").focus();},60);return false;}
   async function publishLive(){if(liveBusy||mode!=="wedstrijd")return;var ok=await requireCoach();if(!ok)return;var m=selectedMatch();if(!m)return;liveBusy=true;setLiveState("","Bijwerken…");var sc=scoreState();var row={match_id:currentMatchId(),home_team:m.type==="Thuis"?TEAM:(m.tegenstander||"Tegenstander"),away_team:m.type==="Thuis"?(m.tegenstander||"Tegenstander"):TEAM,score_alliance:sc.us,score_opponent:sc.them,scorers:scorersState(),lineup:{field:liveLineup(),bench:liveBench(),surface:activeSurface(),clock:(function(){var c=clockState(),left=Math.max(0,halfMs()-elapsed(c));return{half:c.half,left_ms:left,running:c.running,run_at:c.running?Date.now():null,half_ms:halfMs(),started:c.started};})()},status:"live",updated_at:new Date().toISOString()};var r=await SB.from("live_match").upsert(row,{onConflict:"match_id"});liveBusy=false;if(r.error){setLiveState("err","Niet verstuurd");toast("Live publiceren mislukt");console.error(r.error);}else setLiveState("on","Live");}
+async function emitMatchEvent(type,extra){if(!SB)return;var session=await SB.auth.getSession();if(!(session.data&&session.data.session))return;var m=selectedMatch(),sc=scoreState(),minute=extra&&extra.minute!=null?extra.minute:null,scorer=extra&&extra.scorer?extra.scorer:null,opp=m&&m.tegenstander?m.tegenstander:"Tegenstander";var row={match_id:currentMatchId(),event_type:type,scorer:scorer,minute:minute,score_alliance:sc.us,score_opponent:sc.them};var ins=await SB.from("match_events").insert(row);if(ins.error){console.error("match event",ins.error);toast("Melding niet geregistreerd");return}var title="Alliance Live",message="";if(type==="match_started"){title="🏑 Wedstrijd begonnen";message="Alliance tegen "+opp+" is begonnen."}else if(type==="goal_alliance"){title="🟢 GOAL! "+sc.us+"-"+sc.them;message=scorer+" scoort · "+minute+"'"}else if(type==="goal_opponent"){title="🔴 Tegendoelpunt · "+sc.us+"-"+sc.them;message=opp+" scoort · "+minute+"'"}else if(type==="half_time"){title="⏸ Rust · "+sc.us+"-"+sc.them;message="Ruststand bij Alliance tegen "+opp+"."}else if(type==="match_finished"){title="🏁 Afgelopen · "+sc.us+"-"+sc.them;message="Eindstand Alliance tegen "+opp+"."}if(message){var push=await SB.functions.invoke("send-push",{body:{title:title,message:message,url:"./live.html",tag:currentMatchId()+"-"+type+"-"+Date.now()}});if(push.error){console.error("push",push.error);toast("Pushmelding niet verstuurd");}}}
 function changeScore(side,delta){var s=scoreState();s[side]=Math.max(0,s[side]+delta);save(K_SCORE,s);updateScore();publishLive();}
   function startGoalPick(){goalPick=!goalPick;document.body.classList.toggle("goal-pick",goalPick);$("match-hint").classList.toggle("act",goalPick);$("match-hint").textContent=goalPick?"Tik op de speelster die scoorde":"";if(goalPick)toast("Wie heeft er gescoord?");}
   function matchMinute(){var c=clockState(),ms=Math.max(0,Number(c.elapsed)||0);if(c.running&&c.runAt)ms+=Math.max(0,Date.now()-c.runAt);if(c.half===2)ms+=halfMs();return Math.max(1,Math.floor(ms/60000)+1);}
-  function registerGoal(name){var s=scoreState(),a=scorersState();pushHist();s.us++;a.push({name:name,minute:matchMinute()});save(K_SCORE,s);save(K_SCORERS,a);goalPick=false;document.body.classList.remove("goal-pick");updateScore();decorateMatch();publishLive();toast("Doelpunt "+name+" · "+s.us+":"+s.them);}
+  function registerGoal(name){var s=scoreState(),a=scorersState(),minute=matchMinute();pushHist();s.us++;a.push({name:name,minute:minute});save(K_SCORE,s);save(K_SCORERS,a);goalPick=false;document.body.classList.remove("goal-pick");updateScore();decorateMatch();publishLive();emitMatchEvent("goal_alliance",{scorer:name,minute:minute});toast("Doelpunt "+name+" · "+s.us+":"+s.them);}
+  function registerOpponentGoal(){pushHist();changeScore("them",1);emitMatchEvent("goal_opponent",{minute:matchMinute()});}
 function updateScore(){var s=scoreState(),u=$("score-us"),t=$("score-them");if(u)u.textContent=s.us;if(t)t.textContent=s.them;}
 function clockState(){var c=load(K_CLOCK,null);if(!c)c={half:1,elapsed:0,running:false,runAt:null,started:false,bench:{}};c.bench=c.bench||{};return c;}
 function elapsed(c){return Math.min(halfMs(),c.elapsed+(c.running&&c.runAt?Date.now()-c.runAt:0));}
@@ -1011,23 +1013,23 @@ function syncBench(c,now){
 }
 function benchMs(c,n){var b=c.bench[n];if(!b)return 0;return b.total+(b.since!==null&&c.running?Date.now()-b.since:0);}
 function toggleClock(){
-  var c=clockState(),now=Date.now();
+  var c=clockState(),now=Date.now(),firstStart=!c.started;
   if(c.running){c.elapsed=elapsed(c);c.running=false;c.runAt=null;syncBench(c,now);save(K_CLOCK,c);toast("Gepauzeerd");}
   else{
     if(elapsed(c)>=halfMs()){toast(c.half===1?"Helft voorbij · tik Rust":"Wedstrijd is afgelopen");return;}
     if(!c.started){c.started=true;save(K_START,positions);save(K_SHOOT,null);save(K_ORDER,newOrder());}
     c.running=true;c.runAt=now;syncBench(c,now);save(K_CLOCK,c);toast(c.elapsed?"Hervat":"Wedstrijd gestart");
   }
-  updateHud();publishLive();
+  updateHud();publishLive();if(firstStart&&c.running)emitMatchEvent("match_started",{});
 }
 function nextHalf(){
-  var c=clockState(),now=Date.now();
+  var c=clockState(),now=Date.now(),oldHalf=c.half;
   if(c.half===2&&elapsed(c)>=halfMs()){toast("Wedstrijd is al afgelopen");return;}
   var msg=c.half===1?"Naar de rust en de 2e helft?":"Wedstrijd beëindigen?";
   if(elapsed(c)<halfMs()-1000&&!confirm(msg))return;
   if(c.running){c.elapsed=elapsed(c);c.running=false;c.runAt=null;syncBench(c,now);}
   if(c.half===1){c.half=2;c.elapsed=0;toast("2e helft klaar · tik Start");}else{c.elapsed=halfMs();toast("Wedstrijd afgelopen");}
-  save(K_CLOCK,c);updateHud();publishLive();
+  save(K_CLOCK,c);updateHud();publishLive();emitMatchEvent(oldHalf===1?"half_time":"match_finished",{});
 }
 function resetMatch(){
   if(!confirm("Klok, wisseltijden en shoot-outs resetten en terug naar de beginopstelling?"))return;
@@ -1589,7 +1591,7 @@ function init(){
     $("btn-save-op").addEventListener("click",function(){persistPositions();toast("Opstelling lokaal opgeslagen");});
   $("btn-publish-op").addEventListener("click",publishLineup);
   $("btn-reset-op").addEventListener("click",function(){if(!confirm("Terug naar de standaardopstelling uit het bestand?"))return;positions=clone(D.positions||{});persistPositions();render();toast("Standaardopstelling teruggezet");});
-  $("score-us-plus").addEventListener("click",startGoalPick);$("score-us-minus").addEventListener("click",function(){pushHist();var a=scorersState();if(a.length)a.pop();save(K_SCORERS,a);changeScore("us",-1);});$("score-them-plus").addEventListener("click",function(){pushHist();changeScore("them",1);});$("score-them-minus").addEventListener("click",function(){pushHist();changeScore("them",-1);});
+  $("score-us-plus").addEventListener("click",startGoalPick);$("score-us-minus").addEventListener("click",function(){pushHist();var a=scorersState();if(a.length)a.pop();save(K_SCORERS,a);changeScore("us",-1);});$("score-them-plus").addEventListener("click",registerOpponentGoal);$("score-them-minus").addEventListener("click",function(){pushHist();changeScore("them",-1);});
     $("live-state").addEventListener("click",requireCoach);
     $("live-auth-cancel").addEventListener("click",function(){$("live-auth").classList.remove("open");});
     $("live-auth-form").addEventListener("submit",async function(e){e.preventDefault();if(!SB)return;$("live-auth-msg").textContent="Inloggen…";var r=await SB.auth.signInWithPassword({email:$("live-email").value.trim(),password:$("live-password").value});if(r.error){$("live-auth-msg").textContent="Inloggen mislukt. Controleer e-mailadres en wachtwoord.";return;}$("live-auth").classList.remove("open");$("live-password").value="";setLiveState("on","Verbonden");publishLive();});
