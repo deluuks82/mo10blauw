@@ -15,9 +15,7 @@
         "zone": "wissel"
       },
       "Isabel": {
-        "zone": "veld",
-        "sx": 406.73,
-        "sy": 324.32
+        "zone": "afgemeld"
       },
       "Renske": {
         "zone": "afgemeld"
@@ -33,9 +31,7 @@
         "sy": 215
       },
       "Noralie": {
-        "zone": "veld",
-        "sx": 143.27,
-        "sy": 105.68
+        "zone": "afgemeld"
       },
       "Faye": {
         "zone": "wissel"
@@ -46,7 +42,7 @@
         "sy": 105.68
       }
     },
-    "updatedAt": "2026-11-23T09:49:30.788Z"
+    "updatedAt": "2026-11-23T14:32:25.771Z"
   },
   "zaal": {
     "teamNaam": "MHC Alliance MO10",
