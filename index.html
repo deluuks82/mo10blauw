@@ -555,7 +555,9 @@ body.match .menu{top:56px;right:10px;left:auto}
 .legend-row{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;margin-top:6px}
 .legend-row .tip{text-align:right;justify-content:flex-end!important;white-space:normal;line-height:1.25;min-width:0;max-width:110px}
 /* Alle paginakoppen even hoog, zodat wisselen tussen Regels en Team niet verspringt */
-.page-head{min-height:calc(var(--head-h,161px) + env(safe-area-inset-top));box-sizing:border-box}
+.head-meta{position:relative;display:inline-flex;gap:3px;padding:3px;margin-top:14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1)}
+.head-meta button{min-height:30px;padding:0 13px;border-radius:999px;font-size:11.5px;font-weight:700;color:rgba(246,242,234,.72)}
+.head-meta button.active{background:linear-gradient(150deg,#14A274,#0A7C58 55%,#00452F);color:#fff}
 /* In Safari (niet als webapp) tekent Safari de statusbalk zelf in één kleur.
    De kop loopt daarom bovenaan vloeiend over in die kleur, zodat er geen naad zichtbaar is. */
 @media (display-mode:browser){
@@ -730,7 +732,7 @@ button.ri{border:0;padding:0;overflow:hidden;cursor:pointer;position:relative}
 
 
 <section class="page scroll-page" id="page-team">
-  <div class="page-head"><small>MHC Alliance</small><b>Team</b><span>Taken, speelsters en instellingen</span></div>
+  <div class="page-head"><small>MHC Alliance</small><b>Team</b><span>Taken, speelsters en instellingen</span><div class="head-meta" id="team-meta" role="group" aria-label="Ga naar"><button type="button" class="active" data-go="0">Taken</button><button type="button" data-go="1">Speelsters</button><button type="button" data-go="3">Gegevens</button></div></div>
   <div class="team-page">
     <div class="blk-title">Taakoverzicht<span>Geteld per speeldag. Fluiten en keepen tellen één keer per dag. Wedstrijdleiding telt per ouder.</span></div>
     <div class="tbl-wrap"><table id="taken"></table></div>
@@ -1676,6 +1678,9 @@ function init(){
   document.addEventListener("click",function(e){if(!e.target.closest("#menu"))closeMenu();});
   $("btn-so-done").addEventListener("click",function(){shootAction("done");});$("btn-so-skip").addEventListener("click",function(){shootAction("skip");});
   $("btn-so-random").addEventListener("click",shootRandom);
+  $("team-meta").addEventListener("click",function(e){var b=e.target.closest("button[data-go]");if(!b)return;var pg=b.closest(".page"),t=pg.querySelectorAll(".blk-title")[+b.dataset.go];
+    $("team-meta").querySelectorAll("button").forEach(function(x){x.classList.toggle("active",x===b);});
+    if(t){pg.scrollTo({top:t.getBoundingClientRect().top-pg.getBoundingClientRect().top+pg.scrollTop-12,behavior:"smooth"});}});
   $("roster").addEventListener("click",function(e){var b=e.target.closest("[data-photo]");if(b)pickPhoto(b.dataset.photo);});
   $("btn-download").addEventListener("click",downloadHTML);$("btn-poster").addEventListener("click",poster);
   $("btn-photos").addEventListener("click",async function(){if(!(await ask({title:"Alle foto's wissen?",text:"De foto's van alle speelsters worden van dit toestel verwijderd.",ok:"Wissen",danger:true})))return;photos={};save(K_PHOTO,photos);render();renderTeam();toast("Foto's gewist");});
